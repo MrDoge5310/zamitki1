@@ -8,10 +8,10 @@ window = QWidget()
 window.resize(800, 600)
 window.setWindowTitle("Розумні нотатки")
 
-text_field = QLineEdit("Текст нотатки")
+text_field = QTextEdit()
+text_field.setPlaceholderText("Введіть текст нотатки")
 
 notes_list = QListWidget()
-notes_list.setWindowTitle('Список нотаток')
 
 create_note = QPushButton("Створити нотатку")
 delete_note = QPushButton("Видалити нотатку")
@@ -19,7 +19,8 @@ save_note = QPushButton("Зберегти нотатку")
 
 tag_list = QListWidget()
 
-search_line = QLineEdit("Введіть тег")
+search_line = QLineEdit()
+search_line.setPlaceholderText("Введіть тег...")
 
 add_tag = QPushButton("Додати до нотатки")
 delete_tag = QPushButton("Видалити тег")
