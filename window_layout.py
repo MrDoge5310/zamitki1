@@ -50,6 +50,3 @@ coloumn2.addWidget(search_tag)
 main_layout.addLayout(coloumn1, stretch=2)
 main_layout.addLayout(coloumn2, stretch=1)
 window.setLayout(main_layout)
-
-window.show()
-app.exec_()
