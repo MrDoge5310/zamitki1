@@ -40,15 +40,29 @@ def saveNote():
         text = text_field.toPlainText()
         notes[key]["текст"] = text
         WriteToFile(notes)
-        QMessageBox.information(notes_win, "Успішно", "Замітку збережено")
+        QMessageBox.information(window, "Успішно", "Замітку збережено")
     else:
-        QMessageBox.warning(notes_win, "Помилка", "Оберіть замітку")
+        QMessageBox.warning(window, "Помилка", "Оберіть замітку")
+
+
+def addTag():
+    if notes_list.selectedItems():
+        key = notes_list.selectedItems()[0].text()
+        tag = search_line.text()
+        if tag not in notes[key]["теги"]:
+            notes[key]["теги"].append(tag)
+            search_line.clear()
+            tag_list.addItem(tag)
+            WriteToFile(notes)
+    else:
+        QMessageBox.warning(window, "Помилка", "Оберіть замітку")
 
 
 notes_list.itemClicked.connect(showNote)
 create_note.clicked.connect(createNote)
 delete_note.clicked.connect(deleteNote)
 save_note.clicked.connect(saveNote)
+add_tag.clicked.connect(addTag)
 
 
 with open("BIBI.json", 'r') as file:
