@@ -58,12 +58,53 @@ def addTag():
         QMessageBox.warning(window, "Помилка", "Оберіть замітку")
 
 
+def deleteTag():
+    if notes_list.selectedItems():
+        key = notes_list.selectedItems()[0].text()
+        if tag_list.selectedItems():
+            tag = tag_list.selectedItems()[0].text()
+            notes[key]["теги"].remove(tag)
+            WriteToFile(notes)
+
+            tag_list.clear()
+            tag_list.addItems(notes[key]["теги"])
+        else:
+            QMessageBox.warning(window, "Помилка", "Оберіть тег")
+    else:
+        QMessageBox.warning(window, "Помилка", "Оберіть замітку")
+
+
+def searchTag():
+    tag = search_line.text()
+    if search_tag.text() == "Пошук за тегом" and tag:
+        notes_f = {}
+        for note in notes:
+            if tag in notes[note]["теги"]:
+                notes_f[note] = notes[note]
+
+        notes_list.clear()
+        tag_list.clear()
+        notes_list.addItems(notes_f)
+        search_tag.setText("Скасувати пошук")
+
+    elif search_tag.text() == "Скасувати пошук":
+        notes_list.clear()
+        tag_list.clear()
+        notes_list.addItems(notes)
+        search_tag.setText("Пошук за тегом")
+
+    else:
+        QMessageBox.warning(window, "Помилка", "Введіть тег для пошуку")
+
+
+
 notes_list.itemClicked.connect(showNote)
 create_note.clicked.connect(createNote)
 delete_note.clicked.connect(deleteNote)
 save_note.clicked.connect(saveNote)
 add_tag.clicked.connect(addTag)
-
+delete_tag.clicked.connect(deleteTag)
+search_tag.clicked.connect(searchTag)
 
 with open("BIBI.json", 'r') as file:
     notes = json.load(file)
